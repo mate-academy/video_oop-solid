@@ -1,4 +1,5 @@
 import { ReportGenerator } from './ReportGenerator';
+import { TransactionStatistics } from './TransactionStatistics';
 
 function printAccountingReport() {
   const transactions = []; // read them from DB
@@ -8,19 +9,22 @@ function printAccountingReport() {
   console.log(reportGenerator.getMonthly());
 }
 
-//
-// function printNextMonthPlan() {
-//   const transactions = []; // read them from DB
-//   const reportGenerator = new ReportGenerator(transactions);
-//   const currentIncome = reportGenerator.getTotalIncome();
 
-//   console.log('Goal: ', 1.2 * currentIncome);
-// }
-//
+function printNextMonthPlan() {
+  const transactions = []; // read them from DB
+  const stats = new TransactionStatistics(transactions);
+  const currentIncome = stats.getTotalIncome();
 
-// 
-// function printInvertorsReport() {
-//   console.log('\n--- Invertors --- ');
-//   console.log(reportGenerator.getMonthly());
-// }
-//
+  console.log('Goal: ', 1.2 * currentIncome);
+}
+
+
+
+function printInvertorsReport() {
+  const transactions = []; // read them from DB
+  const reportGenerator = new ReportGenerator(transactions);
+
+  console.log('\n--- Invertors --- ');
+  console.log(reportGenerator.getMonthly());
+}
+

@@ -1,6 +1,6 @@
 import { Transaction } from './Transaction';
 
-export class IncomeCalculator {
+export class TransactionStatistics {
   constructor(
     private transactions: Transaction[],
   ) {}
