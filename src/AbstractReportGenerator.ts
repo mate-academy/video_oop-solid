@@ -10,6 +10,6 @@ export abstract class ReportGenerator {
   }
 
   abstract getMonthly(date?: Date);
-  abstract getQuarterly();
-  abstract getAnnual();
+  abstract getQuarterly(date?: Date);
+  abstract getAnnual(date?: Date);
 }

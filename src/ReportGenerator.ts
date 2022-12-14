@@ -1,16 +1,9 @@
 import { Transaction } from './Transaction';
 import { TransactionStatistics } from './TransactionStatistics';
 
-export enum ReportTypes {
-  ACCOUNTING,
-  INVESTORS,
-  PLANNING,
-}
-
 export class ReportGenerator {
   constructor(
-    private transactions: Transaction[],
-    private type: ReportTypes,
+    protected transactions: Transaction[],
   ) {}
 
   getMonthly(date = new Date()) {
@@ -18,32 +11,22 @@ export class ReportGenerator {
     const income = stats.getTotalIncome();
     const month = this.getMonthName(date);
 
-    if (this.type === ReportTypes.ACCOUNTING) {
-      return `Accounting report for ${month}. Income: ${income}.`;
-    } else if (this.type === ReportTypes.INVESTORS) {
-      return `${month} report for Investors. Income: ${income}.`
-    } else if (this.type === ReportTypes.PLANNING) {
-      return `${month} report for Investors. Income: ${income}.`
-    }
+    return `${month} report. Income: ${income}.`;
   }
 
-  getQuarterly() {
-    if (this.type === ReportTypes.ACCOUNTING) {
-      return `...`;
-    } else if (this.type === ReportTypes.INVESTORS) {
-      return `...`;
-    }
+  // getQuarterly(date = new Date()) {
+  //   return `${this.getQuarter(date)} quarter report`;
+  // }
+
+  getAnnual(date = new Date()) {
+    return `${date.getFullYear()} report`;
   }
 
-  getAnnual() {
-    if (this.type === ReportTypes.ACCOUNTING) {
-      return `...`;
-    } else if (this.type === ReportTypes.INVESTORS) {
-      return `...`;
-    }
-  }
-
-  getMonthName(date: Date) {
+  protected getMonthName(date: Date) {
     return date.toLocaleString('default', { month: 'long' });
+  }
+
+  protected getQuarter(date: Date) {
+    return Math.floor((date.getMonth() + 1) / 4);
   }
 }

@@ -1,8 +1,8 @@
-import { ReportGenerator } from './AbstractReportGenerator';
+import { ReportGenerator } from './ReportGenerator';
 import { TransactionStatistics } from './TransactionStatistics';
 
 export class AccountingReportGenerator extends ReportGenerator {
-  getMonthly(date = new Date()) {    
+  getMonthly(date = new Date()) {
     const stats = new TransactionStatistics(this.transactions);
     const income = stats.getTotalIncome();
     const month = this.getMonthName(date);
@@ -14,11 +14,7 @@ export class AccountingReportGenerator extends ReportGenerator {
     `;
   }
 
-  getQuarterly() {
-    return '...';
-  }
-
-  getAnnual() {
-    return '...';
+  getAnnual(date = new Date()) {
+    return `Accounting report for ${date.getFullYear()}.`;
   }
 }
