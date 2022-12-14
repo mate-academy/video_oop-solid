@@ -1,30 +1,27 @@
-import { ReportGenerator } from './ReportGenerator';
-import { TransactionStatistics } from './TransactionStatistics';
+import { ReportGenerator, ReportTypes } from './ReportGenerator';
+import { AccountingReportGenerator } from './AccountingReportGenerator';
+import { InvestorsReportGenerator } from './InvestorsReportGenerator';
 
-function printAccountingReport() {
+function printReport() {
   const transactions = []; // read them from DB
-  const reportGenerator = new ReportGenerator(transactions);
 
-  console.log('\n--- Accounting --- ');
-  console.log(reportGenerator.getMonthly());
+  // Accounting report
+  const accountingReportGenerator = new AccountingReportGenerator(
+    transactions,
+  );
+
+  console.log(
+    accountingReportGenerator.getQuarterly(),
+    accountingReportGenerator.getAnnual(),
+  );
+
+  // Investors report
+  const investorsReportGenerator = new InvestorsReportGenerator(
+    transactions,
+  );
+
+  console.log(
+    investorsReportGenerator.getMonthly(),
+    investorsReportGenerator.getAnnual(),
+  );
 }
-
-
-function printNextMonthPlan() {
-  const transactions = []; // read them from DB
-  const stats = new TransactionStatistics(transactions);
-  const currentIncome = stats.getTotalIncome();
-
-  console.log('Goal: ', 1.2 * currentIncome);
-}
-
-
-
-function printInvertorsReport() {
-  const transactions = []; // read them from DB
-  const reportGenerator = new ReportGenerator(transactions);
-
-  console.log('\n--- Invertors --- ');
-  console.log(reportGenerator.getMonthly());
-}
-
