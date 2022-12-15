@@ -1,7 +1,18 @@
-import { ReportGenerator } from './AbstractReportGenerator';
 import { TransactionStatistics } from './TransactionStatistics';
+import {
+  ReportGenerator,
+  MonthlyReportGenerator,
+  QuarterlyReportGenerator,
+  AnnualReportGenerator,
+} from './ReportGenerator';
 
-export class InvestorsReportGenerator extends ReportGenerator {
+export class InvestorsReportGenerator
+  extends ReportGenerator
+  implements
+    MonthlyReportGenerator,
+    QuarterlyReportGenerator,
+    AnnualReportGenerator
+{
   getMonthly(date = new Date()) {    
     const stats = new TransactionStatistics(this.transactions);
     const income = stats.getTotalIncome();
