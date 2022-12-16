@@ -1,21 +1,53 @@
-import { ReportGenerator } from './AbstractReportGenerator';
 import { AccountingReportGenerator } from './AccountingReportGenerator';
+import { MonthlyReportGenerator } from './ReportGenerator';
+import { Transaction } from './Transaction';
 
+interface TransactionStorage {
+  connect(): FileStorage;
+  getAll(): Transaction[];
+}
 
-const transactions = []; // read them from DB
+class DbStorage implements TransactionStorage {
+  constructor(tableName: string) {}
 
-printReport(
-  new AccountingReportGenerator(transactions)
-);
+  getAll(): Transaction[] {
+    return [];
+  }
+}
 
+abstract class FileStorage implements TransactionStorage {
+  getAll(): Transaction[] {
+    if (this instanceof JSONFileStorage) {
+      
+    }
+  }
+}
 
-function printReport(reportGenerator: ReportGenerator) {
-  console.log('--- Monthly ---');
-  console.log(reportGenerator.getMonthly());
+class JSONFileStorage extends FileStorage {
+  constructor(fileName: string) {
+    super();
+  }
 
-  console.log('--- Quarterly ---');
-  console.log(reportGenerator.getQuarterly());
+  getAll(): Transaction[] {
+    return [];
+  }
+}
 
-  console.log('--- Annual ---');
-  console.log(reportGenerator.getAnnual());
+class CSVFileStorage extends FileStorage {
+  constructor(fileName: string) {
+    super();
+  }
+
+  getAll() {
+    return [];
+  };
+}
+
+class App {
+  printReport(storage: TransactionStorage, reportGenerator: MonthlyReportGenerator) {
+    const transactions = storage.getAll();
+    const report = reportGenerator.getMonthly()
+
+    console.log(report);
+  }
 }
